@@ -16,4 +16,5 @@ public class GameTick : MonoBehaviour
             OnTick?.Invoke(TickRate);
         }
     }
+    //build
 }

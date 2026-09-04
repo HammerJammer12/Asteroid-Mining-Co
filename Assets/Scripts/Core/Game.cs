@@ -14,7 +14,7 @@ public class Game : MonoBehaviour
     {
         tick.OnTick += HandleTick;
     }
-
+//build
     private void OnDisable()
     {
         tick.OnTick -= HandleTick;

@@ -32,7 +32,7 @@ public abstract class GameTickSubscriber : MonoBehaviour
             subscribed = false;
         }
     }
-
+    //build
     private void OnEnable() => Subscribe();
     private void OnDisable() => Unsubscribe();
 }
