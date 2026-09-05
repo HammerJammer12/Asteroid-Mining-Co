@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RadialCoordinate
+public readonly struct RadialCoordinate
 {
     /// <summary>
     /// Radius from center point in kilometers

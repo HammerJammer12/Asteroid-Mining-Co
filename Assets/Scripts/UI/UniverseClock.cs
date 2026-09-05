@@ -8,10 +8,12 @@ public class UniverseClock : GameTickSubscriber
     [SerializeField] private int UniverseHoursPerTick = 1;
     [SerializeField] TMP_Text clockText;
     private DateTime universeEpoch;
+    private DateTime universeStartEpoch;
 
     public override void Init(GameTick _tick)
     {
-        universeEpoch = new DateTime(2350, 1, 1, 0, 0, 0); //arbirtrary start point
+        universeStartEpoch = new DateTime(2350, 1, 1, 0, 0, 0); //arbirtrary start point
+        universeEpoch = universeStartEpoch;
         UpdateClockText();
         base.Init(_tick);
     }
@@ -31,4 +33,6 @@ public class UniverseClock : GameTickSubscriber
 
         clockText.text = universeEpoch.ToString("yyyy-MM-dd HH:mm");
     }
+
+    public double UniverseElapsedEpoch() => (universeEpoch - universeStartEpoch).TotalHours;
 }
