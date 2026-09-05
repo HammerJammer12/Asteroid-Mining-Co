@@ -1,14 +1,12 @@
 using UnityEngine;
 using System;
 using TMPro;
-//build
+
 public class UniverseClock : GameTickSubscriber
 {
     [Tooltip("In-universe hours displayed per tick elapsed.")]
     [SerializeField] private int UniverseHoursPerTick = 1;
     [SerializeField] TMP_Text clockText;
-    private GameTick tick;
-    private bool subscribed;
     private DateTime universeEpoch;
 
     public override void Init(GameTick _tick)
@@ -16,11 +14,6 @@ public class UniverseClock : GameTickSubscriber
         universeEpoch = new DateTime(2350, 1, 1, 0, 0, 0); //arbirtrary start point
         UpdateClockText();
         base.Init(_tick);
-    }
-
-    void Awake()
-    {
-        
     }
 
     protected override void HandleTick(float deltaTime)

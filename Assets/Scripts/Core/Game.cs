@@ -2,22 +2,24 @@ using System;
 using UnityEngine;
 public class Game : MonoBehaviour
 {
-    [SerializeField] private GameTick tick;
-    [SerializeField] private UniverseClock clock;
+    [SerializeField] private GameTick _tick;
+    [SerializeField] private UniverseClock _clock;
+    [SerializeField] private JobQueue _jobQueue;
   
     void Awake()
     {
-        clock.Init(tick);
+        _clock.Init(_tick);
+        _jobQueue.Init(_tick);
     }
 
     private void OnEnable()
     {
-        tick.OnTick += HandleTick;
+        _tick.OnTick += HandleTick;
     }
-//build
+
     private void OnDisable()
     {
-        tick.OnTick -= HandleTick;
+        _tick.OnTick -= HandleTick;
     }
 
     private void HandleTick(float dt)
