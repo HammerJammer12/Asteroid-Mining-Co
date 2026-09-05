@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class RadialCoordinate
 {
     /// <summary>
@@ -14,4 +16,9 @@ public class RadialCoordinate
         Radius = _radius;
         Angle = _angle;
     }
+
+    public Vector2 ToCartesian() => new Vector2(Radius * Mathf.Cos(Angle), Radius *Mathf.Sin(Angle));
+    public static RadialCoordinate FromCartesian(Vector2 point) => new RadialCoordinate(point.magnitude, Mathf.Atan2(point.y, point.x));
+
+    public static RadialCoordinate operator + (RadialCoordinate a, RadialCoordinate b) => FromCartesian(a.ToCartesian() + b.ToCartesian());
 }

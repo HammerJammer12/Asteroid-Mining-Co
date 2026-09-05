@@ -28,27 +28,27 @@ public class Orbit
     private readonly float _semiMajorAxis;
     private readonly float _eccentricity;
     private readonly float _meanMotion;
-    private readonly float _starGravParam;
+    private readonly float _parentGravParam;
 
     public Orbit(
         float apoapsis,
         float periapsis,
         float argumentOfPeriapsis,
         float meanAnomalyAtEpoch,
-        float starGravParam
+        IGravitySource parent
     )
     {
         Apoapsis = apoapsis;
         Periapsis = periapsis;
         ArgumentOfPeriapsis = argumentOfPeriapsis;
         MeanAnomalyAtEpoch = meanAnomalyAtEpoch;
-        _starGravParam = starGravParam;
+        _parentGravParam = parent.GravitationalParameter;
 
         _semiMajorAxis = (apoapsis + periapsis) / 2f;
         _eccentricity = (apoapsis - periapsis) / (apoapsis + periapsis);
 
         //Kepler's third law
-        Period = 2f * Mathf.PI * Mathf.Sqrt(Mathf.Pow(_semiMajorAxis, 3) / starGravParam);
+        Period = 2f * Mathf.PI * Mathf.Sqrt(Mathf.Pow(_semiMajorAxis, 3) / _parentGravParam);
         _meanMotion = 2f * Mathf.PI / Period;
     }
 
@@ -72,7 +72,7 @@ public class Orbit
     /// <returns>Instantaneous orbital speed at a given radius using vis-viva equaion</returns>
     public float GetSpeed(float radius)
     {
-        return Mathf.Sqrt(_starGravParam * (2f / radius - 1f / _semiMajorAxis));
+        return Mathf.Sqrt(_parentGravParam * (2f / radius - 1f / _semiMajorAxis));
     }
 
     /// <summary>
