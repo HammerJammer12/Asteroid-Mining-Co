@@ -266,6 +266,50 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &517803313
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 517803315}
+  - component: {fileID: 517803314}
+  m_Layer: 0
+  m_Name: JobQueue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &517803314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 517803313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce9a284f24a2b7840aca26d42da908ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::JobQueue
+--- !u!4 &517803315
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 517803313}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -431.2823, y: -51.392487, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 785743533}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,8 +577,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d59d1072d6a8a004d849a51c87d4040e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game
-  tick: {fileID: 159621515}
-  clock: {fileID: 2129140833}
+  _tick: {fileID: 159621515}
+  _clock: {fileID: 2129140833}
+  _jobQueue: {fileID: 517803314}
 --- !u!4 &785743533
 Transform:
   m_ObjectHideFlags: 0
@@ -550,6 +595,7 @@ Transform:
   m_Children:
   - {fileID: 159621514}
   - {fileID: 2129140832}
+  - {fileID: 517803315}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &889923603
