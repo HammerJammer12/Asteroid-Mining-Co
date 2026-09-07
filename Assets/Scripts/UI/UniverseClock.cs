@@ -35,4 +35,6 @@ public class UniverseClock : GameTickSubscriber
     }
 
     public double UniverseElapsedEpoch() => (universeEpoch - universeStartEpoch).TotalHours;
+
+    public int GetUniverseHoursPerTick() => UniverseHoursPerTick;
 }
