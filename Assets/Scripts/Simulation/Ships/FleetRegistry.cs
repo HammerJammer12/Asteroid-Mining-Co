@@ -11,6 +11,6 @@ public class FleetRegistry
 
     public void Add(Ship ship) => _ships.Add(ship);
 
-    public IEnumerable<Ship> GetIdleShips() => _ships.Where(ship => ship.shipStatus == ShipStatus.Idle);
+    public IEnumerable<Ship> GetIdleShips() => _ships.Where(ship => ship.IsIdle);
     public IEnumerable<Ship> GetShipsAt(Location location) => _ships.Where(ship => ship.CurrentLocation == location);
 }
