@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 /// <summary>
 /// Ties a star and everything that orbits it together. Two part set-up.
@@ -26,4 +27,6 @@ public class StarSystem
     }
 
     public void AddLocation(Location location) => _locations.Add(location);
+
+    public Location GetLocation(string Id) => _locations.FirstOrDefault(loc => loc.Id.Equals(Id));
 }
