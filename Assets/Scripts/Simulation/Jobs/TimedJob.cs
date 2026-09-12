@@ -6,6 +6,8 @@ public abstract class TimedJob : IJob
 
     protected TimedJob(int durationInTicks) => _remainingTicks = durationInTicks;
 
+    public int RemainingTicks => _remainingTicks;
+
     public bool IsComplete => _cancelled || _remainingTicks <= 0;
 
     public void Cancel() => _cancelled = true;
