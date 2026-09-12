@@ -19,7 +19,7 @@ public static class GetShipStatusText
     {
         if (ship.CurrentJob is ITravelInfo travelInfo)
         {
-            return $"En Route {travelInfo.Origin.Name} -> {travelInfo.Destination.Name} : {travelInfo.RemainingTimeHours:F1}h, {travelInfo.RemainingDistanceKm}km remaining";
+            return $"En Route {travelInfo.Origin.Name} -> {travelInfo.Destination.Name} : {TimeTextConverter.HoursToText((int)travelInfo.RemainingTimeHours)}, {travelInfo.RemainingDistanceKm}km remaining";
         }
 
         return "Travel Info Unavailable";
