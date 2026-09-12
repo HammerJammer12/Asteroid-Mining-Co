@@ -16,6 +16,8 @@ public class ShipInfoDisplay : MonoBehaviour
         _shipStatusText = GetComponentInChildren<ShipStatusText>();
         _shipActionButton = GetComponentInChildren<ShipActionButton>();
 
+        _shipActionButton.Init();
+
         number = shipNumber;
 
         UpdateDisplay();
