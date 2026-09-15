@@ -10,14 +10,14 @@ public class ShipInfoDisplay : MonoBehaviour
     private int number;
     private Ship ship;
 
-    public void Init(int shipNumber, Ship _ship, List<Location> _locations)
+    public void Init(int shipNumber, Ship _ship, List<Location> _locations, FleetDispatcher _dispatcher)
     {
         ship = _ship;
         _shipNumber = GetComponentInChildren<ShipNumber>();
         _shipStatusText = GetComponentInChildren<ShipStatusText>();
         _shipActionButton = GetComponentInChildren<ShipActionButton>();
 
-        _shipActionButton.Init(_locations);
+        _shipActionButton.Init(_locations, _dispatcher, ship);
 
         number = shipNumber;
 

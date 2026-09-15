@@ -10,6 +10,7 @@ public class Game : MonoBehaviour
 
     private StarSystem system;
     private FleetRegistry fleet;
+    private FleetDispatcher dispatcher;
   
     void Awake()
     {
@@ -18,11 +19,10 @@ public class Game : MonoBehaviour
 
         system = TestStarSystemSetup.BuildSol();
         fleet = new FleetRegistry();
+        dispatcher = new FleetDispatcher(_clock);
         SetupDummyFleet();
 
-        Debug.Log(system.Locations.ToList());
-
-        _UIController.Init(_tick, fleet, system);
+        _UIController.Init(_tick, fleet, system, dispatcher);
     }
 
     private void OnEnable()
@@ -43,24 +43,5 @@ public class Game : MonoBehaviour
 
         Ship testShip = new Ship(_jobQueue, system.GetLocation("earth"));
         fleet.Add(testShip);
-
-        DispatchTravelJob(testShip, testShip.CurrentLocation, belt);
-    }
-
-    //Delete in next commit, setup assigning these in UI
-    private int _testShipSpeedKmPerHour = 25;
-    private void DispatchTravelJob(Ship ship, Location origin, Location destination)
-    {
-        float departureTime = (float)_clock.UniverseElapsedEpoch();
-        var plan = TravelPlanCalculator.Calcualte(origin, destination, departureTime, _testShipSpeedKmPerHour);
- 
-        int hoursPerTick = _clock.GetUniverseHoursPerTick();
-        int durationTicks = Mathf.Max(1, Mathf.CeilToInt(plan.TravelTimeHours / hoursPerTick));
-        float actualArrivalTime = departureTime + durationTicks * hoursPerTick;
- 
-        var travelJob = new TravelJob(ship, origin, destination, plan, actualArrivalTime,
-            durationTicks, hoursPerTick, _testShipSpeedKmPerHour);
- 
-        ship.AssignJob(travelJob, ShipStatus.Travelling);
     }
 }
