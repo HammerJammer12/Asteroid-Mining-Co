@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 public class Game : MonoBehaviour
 {
@@ -19,7 +20,9 @@ public class Game : MonoBehaviour
         fleet = new FleetRegistry();
         SetupDummyFleet();
 
-        _UIController.Init(_tick, fleet);
+        Debug.Log(system.Locations.ToList());
+
+        _UIController.Init(_tick, fleet, system);
     }
 
     private void OnEnable()
