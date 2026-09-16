@@ -1,0 +1,14 @@
+public readonly struct ItemStack
+{
+    public readonly Item Item;
+    public readonly float Quantity;
+
+    public ItemStack(Item item, float quantity)
+    {
+        Item = item;
+        Quantity = quantity;
+    }
+
+    public float TotalWeight => Item.Weight * Quantity;
+    public float TotalVolume => Item.Volume * Quantity;
+}

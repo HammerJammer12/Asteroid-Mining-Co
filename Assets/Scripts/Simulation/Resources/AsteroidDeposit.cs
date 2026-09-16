@@ -5,12 +5,12 @@ using UnityEngine;
 /// </summary>
 public class AsteroidDeposit
 {
-    public ResourceType ResourceType { get; }
+    public Item Item { get; }
     private float _remainingYield;
 
-    public AsteroidDeposit(ResourceType resourceType, float startingYield)
+    public AsteroidDeposit(Item item, float startingYield)
     {
-        ResourceType = resourceType;
+        Item = item;
         _remainingYield = startingYield;
     }
 
