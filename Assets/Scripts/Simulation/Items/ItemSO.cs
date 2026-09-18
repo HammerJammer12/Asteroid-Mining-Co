@@ -9,7 +9,7 @@ public class Item : ScriptableObject
     public ItemCategory Category;
 
     [Tooltip("kg per unit.")]
-    public float Weight;
+    public float Mass = 1f;
     [Tooltip("m^3 per unit.")]
     public float Volume;
 

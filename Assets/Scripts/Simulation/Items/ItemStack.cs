@@ -9,6 +9,6 @@ public readonly struct ItemStack
         Quantity = quantity;
     }
 
-    public float TotalWeight => Item.Weight * Quantity;
+    public float TotalMass => Item.Mass * Quantity;
     public float TotalVolume => Item.Volume * Quantity;
 }
