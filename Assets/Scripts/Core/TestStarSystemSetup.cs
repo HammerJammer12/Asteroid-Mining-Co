@@ -22,7 +22,7 @@ public static class TestStarSystemSetup
 
         var belt = new AsteroidField("belt-1", "Outer Belt", system, beltOrbit);
 
-        var deposit = new AsteroidDeposit(oreItem, 2000);
+        var deposit = new AsteroidDeposit(oreItem, 2000, belt);
         belt.Deposits.Add(deposit);
         system.AddLocation(belt);
 

@@ -4,6 +4,7 @@ public class Ship
     public Location CurrentLocation { get; private set; }
     private ShipStatus _assignedStatus = ShipStatus.Idle;
     public bool IsIdle => CurrentJob is null || CurrentJob.IsComplete;
+    public Inventory CargoHold { get; private set; }
     /// <summary>
     /// Idle when there is no job or job is finished, otherwise, derived from CurrentJob. 
     /// </summary>
@@ -15,6 +16,7 @@ public class Ship
     {
         _jobQueue = jobQueue;
         CurrentLocation = startingLocation;
+        CargoHold = new Inventory(1000, 100);
     }
 
     public void AssignJob(IJob job, ShipStatus status)

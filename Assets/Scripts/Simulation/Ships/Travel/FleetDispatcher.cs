@@ -23,4 +23,13 @@ public class FleetDispatcher
         ship.AssignJob(travelJob, ShipStatus.Travelling);
         return true;
     }
+
+    public bool TryMineAt(Ship ship, AsteroidDeposit deposit, float yieldPerTick)
+    {
+        if (!ship.IsIdle) return false;
+        if (ship.CurrentLocation != deposit.Field) return false;
+
+        ship.AssignJob(new RecurringJob(new MiningJob(new MiningJobRequest(ship, deposit, yieldPerTick))), ShipStatus.Mining);
+        return true;
+    }
 }
