@@ -1,29 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-
-public enum AddResult
-{
-    AllAdded,
-    PartiallyAdded,
-    NoneAdded
-}
-
-public readonly struct AddToInventoryResponse
-{
-    public readonly AddResult Result;
-    public readonly float AmountAdded;
-    public readonly float AmountRejected;
-
-    public AddToInventoryResponse(float requested, float accepted)
-    {
-        AmountAdded = accepted;
-        AmountRejected = requested - accepted;
-        Result = accepted <= 0f ? AddResult.NoneAdded
-               : accepted >= requested ? AddResult.AllAdded
-               : AddResult.PartiallyAdded;
-    }
-}
-
+using UnityEngine;
 
 public class Inventory
 {
@@ -52,8 +29,22 @@ public class Inventory
     
     public AddToInventoryResponse TryAddToInventory(ItemStack itemStack)
     {   
-        //TODO
-        return new(0, 0);
+        float maxByVolume = (MaxVolume - UsedVolume) / itemStack.Item.Volume;
+        float maxByMass = (MaxMass - TotalMass) / itemStack.Item.Mass;
+
+        float accepted = Mathf.Min(itemStack.Quantity, maxByVolume, maxByMass);
+
+        if (accepted > 0f)
+        {
+            int index = _items.FindIndex(stack => stack.Item.Id == itemStack.Item.Id);
+            if (index != -1)
+            {
+                _items[index] = _items[index].WithAdded(accepted);
+            }
+            _items.Add(new ItemStack(itemStack.Item, accepted));
+        }
+
+        return new AddToInventoryResponse(itemStack.Quantity, accepted);
     }
 
 
