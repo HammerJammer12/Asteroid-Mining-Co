@@ -41,7 +41,10 @@ public class Inventory
             {
                 _items[index] = _items[index].WithAdded(accepted);
             }
-            _items.Add(new ItemStack(itemStack.Item, accepted));
+            else
+            {
+                _items.Add(new ItemStack(itemStack.Item, accepted));
+            }
         }
 
         return new AddToInventoryResponse(itemStack.Quantity, accepted);

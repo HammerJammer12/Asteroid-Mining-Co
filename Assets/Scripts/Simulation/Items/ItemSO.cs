@@ -11,7 +11,7 @@ public class Item : ScriptableObject
     [Tooltip("kg per unit.")]
     public float Mass = 1f;
     [Tooltip("m^3 per unit.")]
-    public float Volume;
+    public float Volume = 1f;
 
 #if UNITY_EDITOR
     private void OnValidate()
