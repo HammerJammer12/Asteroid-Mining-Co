@@ -7,6 +7,7 @@ public class Game : MonoBehaviour
     [SerializeField] private UniverseClock _clock;
     [SerializeField] private JobQueue _jobQueue;
     [SerializeField] private UIController _UIController;
+    [SerializeField] private ItemDatabase itemDatabase;
 
     private StarSystem system;
     private FleetRegistry fleet;
@@ -17,7 +18,7 @@ public class Game : MonoBehaviour
         _clock.Init(_tick);
         _jobQueue.Init(_tick);
 
-        system = TestStarSystemSetup.BuildSol();
+        system = TestStarSystemSetup.BuildSol(itemDatabase.GetById("VQIMHKKK"));
         fleet = new FleetRegistry();
         dispatcher = new FleetDispatcher(_clock);
         SetupDummyFleet();

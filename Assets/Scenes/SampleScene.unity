@@ -743,6 +743,7 @@ MonoBehaviour:
   _clock: {fileID: 2129140833}
   _jobQueue: {fileID: 517803314}
   _UIController: {fileID: 457736289}
+  itemDatabase: {fileID: 11400000, guid: 4749e421f84fd8543ae27ab61614e404, type: 2}
 --- !u!4 &785743533
 Transform:
   m_ObjectHideFlags: 0

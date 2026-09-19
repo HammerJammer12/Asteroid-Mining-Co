@@ -29,8 +29,13 @@ public class Inventory
     
     public AddToInventoryResponse TryAddToInventory(ItemStack itemStack)
     {   
-        float maxByVolume = (MaxVolume - UsedVolume) / itemStack.Item.Volume;
-        float maxByMass = (MaxMass - TotalMass) / itemStack.Item.Mass;
+        float maxByVolume = itemStack.Item.Volume > 0f 
+        ? (MaxVolume - UsedVolume) / itemStack.Item.Volume 
+        : itemStack.Quantity;
+
+        float maxByMass = itemStack.Item.Mass > 0f 
+        ? (MaxMass - TotalMass) / itemStack.Item.Mass 
+        : itemStack.Quantity;
 
         float accepted = Mathf.Min(itemStack.Quantity, maxByVolume, maxByMass);
 

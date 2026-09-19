@@ -1,6 +1,6 @@
 public static class TestStarSystemSetup
 {
-    public static StarSystem BuildSol()
+    public static StarSystem BuildSol(Item oreItem)
     {
         var system = new StarSystem("sol", "Sol");
 
@@ -21,6 +21,9 @@ public static class TestStarSystemSetup
             argumentOfPeriapsis: 2f, meanAnomalyAtEpoch: 1.5f, parent: star);
 
         var belt = new AsteroidField("belt-1", "Outer Belt", system, beltOrbit);
+
+        var deposit = new AsteroidDeposit(oreItem, 2000);
+        belt.Deposits.Add(deposit);
         system.AddLocation(belt);
 
         return system;

@@ -9,8 +9,10 @@ public class Item : ScriptableObject
     public ItemCategory Category;
 
     [Tooltip("kg per unit.")]
+    [Min(0.01f)]
     public float Mass = 1f;
     [Tooltip("m^3 per unit.")]
+    [Min(0.01f)]
     public float Volume = 1f;
 
 #if UNITY_EDITOR
