@@ -7,13 +7,13 @@ public class StarSystemVisualizer : MonoBehaviour
     private Dictionary<Location, LocationView> _views;
     [SerializeField] private Sprite testSprite;
 
-    public void Init(StarSystem _system)
+    public void Init(StarSystem _system, float elapsedTime)
     {
         system = _system;
-        _views = BuildViews((List<Location>)system.Locations);
+        _views = BuildViews(system.Locations, elapsedTime);
     }
 
-    private Dictionary<Location, LocationView> BuildViews(List<Location> locations)
+    private Dictionary<Location, LocationView> BuildViews(IReadOnlyList<Location> locations, float elapsedTime)
     {
         Dictionary<Location, LocationView> views = new Dictionary<Location, LocationView>();
         foreach (var location in locations)
@@ -23,34 +23,31 @@ public class StarSystemVisualizer : MonoBehaviour
 
             SpriteRenderer spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
             spriteRenderer.sprite = testSprite;
-
-            float xPos;
-            float yPos;
-
-            if (location is IOrbitable orbitable)
-            {
-                xPos = orbitable.GetCurrentPosition(UniverseClock.universeStartEpoch.Hour).ToCartesian().x;
-                yPos = orbitable.GetCurrentPosition(UniverseClock.universeStartEpoch.Hour).ToCartesian().y;
-            }
-            else
-            {
-                xPos = 0f;
-                yPos = 0f;
-
-            }
-
-            LocationView locationView = new LocationView(location, xPos, yPos, gameObject, testSprite);
-            
             spriteRenderer.sortingOrder = 10;
+
+            Vector2 position = location is IOrbitable orbitable
+            ? orbitable.GetCurrentPosition(elapsedTime).ToCartesian()
+            : Vector2.zero;
+
+            LocationView locationView =  gameObject.AddComponent<LocationView>();
+            locationView.UpdateData(location, position.x, position.y, gameObject, testSprite);
+                
             views[location] = locationView;
         }
 
         return views;
     }
 
-    public void UpdateViews(double elapsedEpoch)
+    public void UpdateViews(float elapsedTime)
     {
-        
+        foreach (var (location, view) in _views)
+        {
+            if (location is IOrbitable orbitable)
+            {
+                Vector2 position = orbitable.GetCurrentPosition(elapsedTime).ToCartesian();
+                view.UpdatePosition(position.x, position.y);
+            }
+        }
     }
     
 }

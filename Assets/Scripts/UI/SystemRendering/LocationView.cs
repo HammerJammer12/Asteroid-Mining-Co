@@ -8,7 +8,7 @@ public class LocationView : MonoBehaviour
     private GameObject gameobject;
     private Sprite sprite;
 
-    public LocationView(
+    public void UpdateData(
         Location _location, 
         float startingX, 
         float startingY, 
@@ -22,4 +22,6 @@ public class LocationView : MonoBehaviour
         gameobject = _gameObject;
         sprite = _sprite;
     }
+
+    public void UpdatePosition(float x, float y) => gameObject.transform.position = new Vector3(x, y, 0f);
 }
