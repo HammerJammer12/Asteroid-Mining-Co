@@ -40,8 +40,6 @@ public class Game : MonoBehaviour
 
     private void SetupDummyFleet()
     {
-        Location belt = system.GetLocation("belt-1");
-
         Ship testShip = new Ship(_jobQueue, system.GetLocation("earth"));
         fleet.Add(testShip);
     }
