@@ -8,13 +8,17 @@ public class AsteroidDeposit
     public Item Item { get; }
     private float _remainingYield;
     public readonly Location Field;
+    public readonly float StartingYield;
 
     public AsteroidDeposit(Item item, float startingYield, Location field)
     {
         Item = item;
         _remainingYield = startingYield;
+        StartingYield = startingYield;
         Field = field;
     }
+
+    public float GetReamainingYield() => _remainingYield;
 
     public bool IsDepleted() => _remainingYield <= 0f;
 

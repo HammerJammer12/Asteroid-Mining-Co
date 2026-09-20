@@ -1,3 +1,6 @@
+using Unity;
+using UnityEngine;
+
 public static class GetShipStatusText 
 {
     public static string Get(Ship ship)
@@ -9,7 +12,7 @@ public static class GetShipStatusText
             case ShipStatus.Travelling:
                 return GetTravellingText(ship);
             case ShipStatus.Mining:
-                return $"Mining Volume at {ship.CargoHold.UsedVolume} / {ship.CargoHold.MaxVolume} Mass At{ship.CargoHold.TotalMass} / {ship.CargoHold.MaxMass}";
+                return GetMiningText(ship);
         }
 
         return "something went wrong";
@@ -23,5 +26,16 @@ public static class GetShipStatusText
         }
 
         return "Travel Info Unavailable";
+    }
+
+    private static string GetMiningText(Ship ship)
+    {
+        Debug.Log(ship.CurrentJob);
+        if (ship.CurrentJob is RecurringJob recurring && recurring.InnerJob is IMiningInfo miningInfo)
+        {
+            return $"Mining {miningInfo.Ore} : {miningInfo.DepositRemainingDisplay} left in deposit";
+        }
+
+        return "Mining Info Unavailable";
     }
 }

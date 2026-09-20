@@ -1,11 +1,13 @@
 using UnityEngine;
 
-public class MiningJob : IRecurringJob
+public class MiningJob : IRecurringJob, IMiningInfo
 {
     private readonly Ship ship;
     private readonly AsteroidDeposit deposit;
     private readonly float yieldPerTick;
     private bool cargoFull;
+    public Item Ore => deposit.Item;
+    public string DepositRemainingDisplay => $"{deposit.GetReamainingYield()} / {deposit.StartingYield}";
 
     public MiningJob(MiningJobRequest request)
     {

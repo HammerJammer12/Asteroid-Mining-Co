@@ -10,6 +10,7 @@ public class RecurringJob : IJob
     public bool IsComplete => _stopped || _cancelled;
 
     public RecurringJob(IRecurringJob job) => _job = job;
+    public IRecurringJob InnerJob => _job;
 
     public void Tick()
     {
