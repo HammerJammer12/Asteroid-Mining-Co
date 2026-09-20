@@ -7,7 +7,7 @@ public class RecurringJob : IJob
     private bool _cancelled;
     private bool _stopped;
 
-    public bool IsComplete => _stopped;
+    public bool IsComplete => _stopped || _cancelled;
 
     public RecurringJob(IRecurringJob job) => _job = job;
 

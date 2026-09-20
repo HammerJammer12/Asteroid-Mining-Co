@@ -9,7 +9,7 @@ public static class GetShipStatusText
             case ShipStatus.Travelling:
                 return GetTravellingText(ship);
             case ShipStatus.Mining:
-                return ""; //TODO during when I add mining logic
+                return $"Mining Volume at {ship.CargoHold.UsedVolume} / {ship.CargoHold.MaxVolume} Mass At{ship.CargoHold.TotalMass} / {ship.CargoHold.MaxMass}";
         }
 
         return "something went wrong";
