@@ -6,6 +6,7 @@ public class StarSystemVisualizer : MonoBehaviour
     private StarSystem system;
     private Dictionary<Location, LocationView> _views;
     [SerializeField] private Sprite testSprite;
+    [SerializeField] private static float scaleDownFactor = 500f;
 
     public void Init(StarSystem _system, float elapsedTime)
     {
@@ -25,10 +26,7 @@ public class StarSystemVisualizer : MonoBehaviour
             spriteRenderer.sprite = testSprite;
             spriteRenderer.sortingOrder = 10;
 
-            Vector2 position = location is IOrbitable orbitable
-            ? orbitable.GetCurrentPosition(elapsedTime).ToCartesian()
-            : Vector2.zero;
-
+            Vector2 position = GetVisualPosition(location, elapsedTime);
             LocationView locationView =  gameObject.AddComponent<LocationView>();
             locationView.UpdateData(location, position.x, position.y, gameObject, testSprite);
                 
@@ -38,13 +36,24 @@ public class StarSystemVisualizer : MonoBehaviour
         return views;
     }
 
+    private Vector2 GetVisualPosition(Location location, float elapsedTime)
+    {
+        if (location is IOrbitable orbitable)
+        {
+            Vector2 simPosition = orbitable.GetCurrentPosition(elapsedTime).ToCartesian();
+            return simPosition / scaleDownFactor;
+        }
+
+        return Vector2.zero;
+    }
+
     public void UpdateViews(float elapsedTime)
     {
         foreach (var (location, view) in _views)
         {
             if (location is IOrbitable orbitable)
             {
-                Vector2 position = orbitable.GetCurrentPosition(elapsedTime).ToCartesian();
+                Vector2 position = GetVisualPosition(location, elapsedTime);
                 view.UpdatePosition(position.x, position.y);
             }
         }

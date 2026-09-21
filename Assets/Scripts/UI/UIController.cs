@@ -21,6 +21,7 @@ public class UIController : GameTickSubscriber
         _clock = clock;
 
         _fleetControlPanel.Init(_fleetRegistry, ShipInfoDisplayPrefab, system.Locations.ToList(), dispatcher);
+        _fleetControlPanel.gameObject.SetActive(false); //REMOVE DEBUGGING ONLY
         starSystemVisualizer.Init(_system, (float)_clock.UniverseElapsedEpoch());
     }
     protected override void HandleTick(float dt)
