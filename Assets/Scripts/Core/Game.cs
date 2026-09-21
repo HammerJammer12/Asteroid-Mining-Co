@@ -23,7 +23,7 @@ public class Game : MonoBehaviour
         dispatcher = new FleetDispatcher(_clock);
         SetupDummyFleet();
 
-        _UIController.Init(_tick, fleet, system, dispatcher);
+        _UIController.Init(_tick, fleet, system, dispatcher, _clock);
     }
 
     private void OnEnable()
