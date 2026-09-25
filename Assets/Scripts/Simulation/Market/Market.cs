@@ -6,15 +6,12 @@ public class Market
     /// <param name="inventory">Inventory to sell from</param>
     /// <param name="itemsToSell">Item and Quantity to Sell</param>
     /// <returns>Credits gained from transaction</returns>
-    public float TrySellItems(Inventory inventory, ItemStack itemsToSell)
+    public float SellItems(Inventory inventory, Player player, ItemStack itemsToSell)
     {
-        float creditsToReturn = 0f;
+        if (!inventory.TryRemoveFromInventory(itemsToSell.Item, itemsToSell.Quantity, out ItemStack removed)) return 0f;
 
-        if (inventory.TryRemoveFromInventory(itemsToSell.Item, itemsToSell.Quantity, out ItemStack removed))
-        {
-            creditsToReturn += removed.Item.SellValue * removed.Quantity;
-        }
-
+        float creditsToReturn = removed.Item.SellValue * removed.Quantity;
+        player.AddCredits(creditsToReturn);
         return creditsToReturn;
     }
     

@@ -32,4 +32,11 @@ public class FleetDispatcher
         ship.AssignJob(new RecurringJob(new MiningJob(new MiningJobRequest(ship, deposit, yieldPerTick))), ShipStatus.Mining);
         return true;
     }
+
+    public float TrySellAt(Ship ship, Market market, Player player, ItemStack itemsToSell)
+    {
+        if (ship.CurrentLocation is not IMarketLocation) return 0f;
+
+        return market.SellItems(ship.CargoHold, player, itemsToSell);
+    }
 }

@@ -1,4 +1,4 @@
-public class SpaceStation : Location, IOrbitable
+public class SpaceStation : Location, IOrbitable, IMarketLocation
 {
     public Orbit Orbit { get; }
     //private readonly faciltiies list
