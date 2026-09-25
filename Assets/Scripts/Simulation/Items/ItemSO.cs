@@ -14,6 +14,8 @@ public class Item : ScriptableObject
     [Tooltip("m^3 per unit.")]
     [Min(0.01f)]
     public float Volume = 1f;
+    [Min(1)]
+    public float SellValue = 1f;
 
 #if UNITY_EDITOR
     private void OnValidate()
