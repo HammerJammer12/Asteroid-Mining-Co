@@ -7,19 +7,21 @@ public class LocationView : MonoBehaviour
     private float x;
     private float y;
     private Sprite sprite;
+    private Action<Location> UpdateLocationUI;
 
     public void UpdateData(
         Location _location, 
         float startingX, 
         float startingY, 
-        GameObject _gameObject,
-        Sprite _sprite
+        Sprite _sprite,
+        Action<Location> _updateLocationUI
         )
     {
         location = _location;
         x = startingX;
         y = startingY;
         sprite = _sprite;
+        UpdateLocationUI = _updateLocationUI;
 
         if (GetComponent<CircleCollider2D>() == null)
         {
@@ -32,6 +34,7 @@ public class LocationView : MonoBehaviour
     {
         //TODO: setup an onClicked invoke event if this needs to get used for anything more than updating the camera
         CameraController.instance.CenterOnTarget(gameObject.transform);
+        UpdateLocationUI(location);
     }
 
     public void UpdatePosition(float x, float y) => gameObject.transform.position = new Vector3(x, y, 0f);

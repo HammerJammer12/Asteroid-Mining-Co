@@ -1,20 +1,22 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class StarSystemVisualizer : MonoBehaviour
 {
     private StarSystem system;
+    private SelectedLocationText selectedLocationText;
     private Dictionary<Location, LocationView> _views;
     [SerializeField] private Sprite testSprite;
     [SerializeField] private static float scaleDownFactor = 500f;
 
-    public void Init(StarSystem _system, float elapsedTime)
+    public void Init(StarSystem _system, float elapsedTime, Action<Location> updateLocationUI)
     {
         system = _system;
-        _views = BuildViews(system.Locations, elapsedTime);
+        _views = BuildViews(system.Locations, elapsedTime, updateLocationUI);
     }
 
-    private Dictionary<Location, LocationView> BuildViews(IReadOnlyList<Location> locations, float elapsedTime)
+    private Dictionary<Location, LocationView> BuildViews(IReadOnlyList<Location> locations, float elapsedTime, Action<Location> updateLocationUI)
     {
         Dictionary<Location, LocationView> views = new Dictionary<Location, LocationView>();
         foreach (var location in locations)
@@ -28,7 +30,7 @@ public class StarSystemVisualizer : MonoBehaviour
 
             Vector2 position = GetVisualPosition(location, elapsedTime);
             LocationView locationView =  gameObject.AddComponent<LocationView>();
-            locationView.UpdateData(location, position.x, position.y, gameObject, testSprite);
+            locationView.UpdateData(location, position.x, position.y, testSprite, updateLocationUI);
                 
             views[location] = locationView;
         }

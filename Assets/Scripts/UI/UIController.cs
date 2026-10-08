@@ -1,4 +1,5 @@
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UIController : GameTickSubscriber
@@ -7,6 +8,7 @@ public class UIController : GameTickSubscriber
     [SerializeField] private FleetControlPanel _fleetControlPanel;
     [SerializeField] private GameObject ShipInfoDisplayPrefab;
     [SerializeField] private StarSystemVisualizer starSystemVisualizer;
+    [SerializeField] private SelectedLocationDisplay selectedLocationDisplay;
     private FleetRegistry _fleetRegistry;
     private StarSystem _system;
     private FleetDispatcher _dispatcher;
@@ -22,12 +24,13 @@ public class UIController : GameTickSubscriber
 
         _fleetControlPanel.Init(_fleetRegistry, ShipInfoDisplayPrefab, system.Locations.ToList(), dispatcher);
         _fleetControlPanel.gameObject.SetActive(false); //REMOVE DEBUGGING ONLY
-        starSystemVisualizer.Init(_system, (float)_clock.UniverseElapsedEpoch());
+        selectedLocationDisplay.Init();
+        starSystemVisualizer.Init(_system, (float)_clock.UniverseElapsedEpoch(), selectedLocationDisplay.UpdateSelectedLocationUI);
+        
     }
     protected override void HandleTick(float dt)
     {
         _fleetControlPanel.RenderFleetInformation();
         starSystemVisualizer.UpdateViews((float)_clock.UniverseElapsedEpoch());
     }
-    
 }
