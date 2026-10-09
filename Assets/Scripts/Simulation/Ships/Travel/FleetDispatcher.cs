@@ -1,9 +1,15 @@
+using System.Linq;
 using UnityEngine;
 
 public class FleetDispatcher
 {
     private readonly UniverseClock _clock;
-    public FleetDispatcher(UniverseClock clock) => _clock = clock;
+    private Player _player;
+    public FleetDispatcher(UniverseClock clock, Player player)
+    {
+        _clock = clock;
+        _player = player;
+    }
 
     public bool TryTravelTo(Ship ship, Location destination)
     {
@@ -33,10 +39,17 @@ public class FleetDispatcher
         return true;
     }
 
-    public float TrySellAt(Ship ship, Market market, Player player, ItemStack itemsToSell)
+    public float TrySellAt(Ship ship, ItemStack itemsToSell)
     {
-        if (ship.CurrentLocation is not IMarketLocation) return 0f;
+        if (!ship.IsIdle || ship.CurrentLocation is not IMarketLocation marketLocation) return 0f;
+        return marketLocation.Market.SellItems(ship.CargoHold, _player, itemsToSell);
+    }
 
-        return market.SellItems(ship.CargoHold, player, itemsToSell);
+    public float TrySellAllAt(Ship ship)
+    {
+        float total = 0f;
+        foreach (ItemStack stack in ship.CargoHold.Items.ToList()) // copy: selling mutates the list
+            total += TrySellAt(ship, stack);
+        return total;
     }
 }

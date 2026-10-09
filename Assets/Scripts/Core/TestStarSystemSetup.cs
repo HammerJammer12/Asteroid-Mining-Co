@@ -26,6 +26,11 @@ public static class TestStarSystemSetup
         belt.Deposits.Add(deposit);
         system.AddLocation(belt);
 
+        var stationOrbit = new Orbit(apoapsis: 700f, periapsis: 700f,
+            argumentOfPeriapsis: 1f, meanAnomalyAtEpoch: 0f, parent: star);
+            
+        system.AddLocation(new SpaceStation("station-1", "Trade Station", system, stationOrbit));
+
         return system;
     }
 }

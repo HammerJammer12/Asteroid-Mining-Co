@@ -1,2 +1,2 @@
-public interface IMarketLocation {}
+public interface IMarketLocation { Market Market { get; }}
 

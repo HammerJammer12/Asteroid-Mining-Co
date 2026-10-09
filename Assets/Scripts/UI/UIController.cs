@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -21,9 +22,8 @@ public class UIController : GameTickSubscriber
         _system = system;
         _dispatcher = dispatcher;
         _clock = clock;
-
+        
         _fleetControlPanel.Init(_fleetRegistry, ShipInfoDisplayPrefab, system.Locations.ToList(), dispatcher);
-        _fleetControlPanel.gameObject.SetActive(false); //REMOVE DEBUGGING ONLY
         selectedLocationDisplay.Init();
         starSystemVisualizer.Init(_system, (float)_clock.UniverseElapsedEpoch(), selectedLocationDisplay.UpdateSelectedLocationUI);
         

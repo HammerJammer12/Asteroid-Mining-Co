@@ -14,16 +14,16 @@ public class Inventory
     /// </summary>
     public readonly float MaxVolume;
 
-    private List<ItemStack> _items;
+    public List<ItemStack> Items { get; private set; }
 
-    public float UsedVolume => _items.Sum(s => s.Item.Volume * s.Quantity);
-    public float TotalMass => _items.Sum(s => s.Item.Mass * s.Quantity);
+    public float UsedVolume => Items.Sum(s => s.Item.Volume * s.Quantity);
+    public float TotalMass => Items.Sum(s => s.Item.Mass * s.Quantity);
 
     public Inventory(float maxMass, float maxVolume)
     {
         MaxMass = maxMass;
         MaxVolume = maxVolume;
-        _items = new();
+        Items = new();
     }
 
     
@@ -41,14 +41,14 @@ public class Inventory
 
         if (accepted > 0f)
         {
-            int index = _items.FindIndex(stack => stack.Item.Id == itemStack.Item.Id);
+            int index = Items.FindIndex(stack => stack.Item.Id == itemStack.Item.Id);
             if (index != -1)
             {
-                _items[index] = _items[index].WithAdded(accepted);
+                Items[index] = Items[index].WithAdded(accepted);
             }
             else
             {
-                _items.Add(new ItemStack(itemStack.Item, accepted));
+                Items.Add(new ItemStack(itemStack.Item, accepted));
             }
         }
 
@@ -60,22 +60,22 @@ public class Inventory
     /// <returns>True if the full requested quantity was available and removed.</returns>
     public bool TryRemoveFromInventory(Item item, float quantity, out ItemStack removed)
     {
-        int index = _items.FindIndex(stack => stack.Item.Id == item.Id);
+        int index = Items.FindIndex(stack => stack.Item.Id == item.Id);
 
-        if (index == -1 || _items[index].Quantity < quantity)
+        if (index == -1 || Items[index].Quantity < quantity)
         {
             removed = default;
             return false;
         }
 
-        float remaining = _items[index].Quantity - quantity;
+        float remaining = Items[index].Quantity - quantity;
         if (remaining <= 0f)
         {
-            _items.RemoveAt(index);
+            Items.RemoveAt(index);
         }
         else
         {
-            _items[index] = new ItemStack(item, remaining);
+            Items[index] = new ItemStack(item, remaining);
         }
 
         removed = new ItemStack(item, quantity);

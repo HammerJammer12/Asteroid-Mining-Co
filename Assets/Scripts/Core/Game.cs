@@ -21,8 +21,8 @@ public class Game : MonoBehaviour
 
         system = TestStarSystemSetup.BuildSol(itemDatabase.GetById("VQIMHKKK"));
         fleet = new FleetRegistry();
-        dispatcher = new FleetDispatcher(_clock);
         player = new Player();
+        dispatcher = new FleetDispatcher(_clock, player);
         SetupDummyFleet();
 
         _UIController.Init(_tick, fleet, system, dispatcher, _clock);

@@ -1,6 +1,7 @@
 public class SpaceStation : Location, IOrbitable, IMarketLocation
 {
     public Orbit Orbit { get; }
+    public Market Market { get; } = new Market();
     //private readonly faciltiies list
 
     public SpaceStation(

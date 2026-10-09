@@ -6,14 +6,11 @@ public abstract class Location
     public string Id { get; }
     public string Name { get; }
     public StarSystem System { get; }
-    #nullable enable
-    public Market? Market { get; }
 
-    protected Location(string id, string name, StarSystem system, Market? market = null)
+    protected Location(string id, string name, StarSystem system)
     {
         Id = id;
         Name = name;
         System = system;
-        Market = market;
     }
 }
